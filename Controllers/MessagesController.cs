@@ -5,12 +5,20 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
+using SimpleBot.Persistencia;
 
 namespace SimpleBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        private readonly MessageRepo _messageRepo;
+
+        public MessagesController()
+        {
+            _messageRepo = new MessageRepo();
+        }
+
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
@@ -31,6 +39,8 @@ namespace SimpleBot
             string userFromName = activity.From.Name;
 
             var message = new Message(userFromId, userFromName, text);
+
+            await _messageRepo.InsertOne(message);
 
             string response = SimpleBotUser.Reply(message);
 
