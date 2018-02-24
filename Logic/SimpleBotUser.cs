@@ -1,4 +1,4 @@
-﻿using SimpleBot.Persistencia.Memoria;
+﻿using SimpleBot.Persistencia.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +27,21 @@ namespace SimpleBot
 
         public static async Task<string> Reply(Message message)
         {
-            string userId = message.UserId;
+            try
+            {
+                string userId = message.UserId;
 
-            var userProfile = await GetProfile(userId);
+                var userProfile = await GetProfile(userId);
 
-            userProfile.Visitas += 1;
+                userProfile.Visitas += 1;
 
-            await SetProfile(userProfile);
+                await SetProfile(userProfile);
 
-            return $"{message.User} conversou {userProfile.Visitas} vezes";
+                return $"{message.User} conversou {userProfile.Visitas} vezes";
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private static async Task<UserProfile> GetProfile(string id)
@@ -45,6 +51,7 @@ namespace SimpleBot
             if(userProfile == null)
             {
                 userProfile = new UserProfile(id, 0);
+                await UserProfileRepo.InsertOne(userProfile);
             }
 
             return userProfile;

@@ -1,32 +1,23 @@
-﻿//using MongoDB.Bson;
-//using MongoDB.Driver;
-//using SimpleBot.Infra;
-//using System;
-//using System.Collections.Generic;
-//using System.Data.Common;
-//using System.Linq;
-//using System.Linq.Expressions;
-//using System.Threading.Tasks;
-//using System.Web;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using SimpleBot.Infra;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using System.Web;
 
-//namespace SimpleBot.Persistencia.SQL
-//{
-//    public class RepoBase<T> : IRepoBase<T>
-//    {
-//        public Task InsertOne(T entity)
-//        {
-//            throw new NotImplementedException();
-//        }
+namespace SimpleBot.Persistencia.SQL
+{
+    public abstract class RepoBase<T> : IRepoBase<T>
+    {
+        public abstract Task InsertOne(T entity);
 
-//        public IQueryable<T> GetLazy()
-//        {
-//            throw new NotImplementedException();
-//        }
+        public abstract IQueryable<T> GetLazy();
 
-//        public async Task ReplaceOne(Expression<Func<T, bool>> filter,
-//            T entity)
-//        {
-//            throw new NotImplementedException();
-//        }
-//    }
-//}
+        public abstract Task ReplaceOne(Expression<Func<T, bool>> filter,
+            T entity);
+    }
+}

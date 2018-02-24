@@ -16,6 +16,14 @@ namespace SimpleBot.Infra
             }
         }
 
+        public static string ConnectionStringSql
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["sqlConn"];
+            }
+        }
+
         public static string DatabaseName
         {
             get
