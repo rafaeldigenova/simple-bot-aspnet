@@ -1,4 +1,4 @@
-﻿using SimpleBot.Persistencia;
+﻿using SimpleBot.Persistencia.Memoria;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +29,13 @@ namespace SimpleBot
         {
             string userId = message.UserId;
 
-            await IncreaseVisitis(userId);
+            var userProfile = await GetProfile(userId);
 
-            return $"{message.User} disse '{message.Text}'";
+            userProfile.Visitas += 1;
+
+            await SetProfile(userProfile);
+
+            return $"{message.User} conversou {userProfile.Visitas} vezes";
         }
 
         private static async Task<UserProfile> GetProfile(string id)
@@ -41,7 +45,6 @@ namespace SimpleBot
             if(userProfile == null)
             {
                 userProfile = new UserProfile(id, 0);
-                await SetProfile(userProfile);
             }
 
             return userProfile;
@@ -49,15 +52,7 @@ namespace SimpleBot
 
         private static async Task SetProfile(UserProfile profile)
         {
-           await UserProfileRepo.InsertOne(profile);
-        }
-
-        public static async Task IncreaseVisitis (string id)
-        {
-            var profile = await GetProfile(id);
-
-            await UserProfileRepo.Increment(x => x.UserId == id,
-                "Visitas", 1);
+           await UserProfileRepo.ReplaceOne(x => x.UserId == profile.UserId, profile);
         }
     }
 }

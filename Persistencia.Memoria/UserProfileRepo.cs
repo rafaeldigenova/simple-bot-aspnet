@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace SimpleBot.Persistencia
+namespace SimpleBot.Persistencia.Memoria
 {
     public class UserProfileRepo : RepoBase<UserProfile>
     {

@@ -10,7 +10,7 @@ using System.Web;
 
 namespace SimpleBot.Persistencia
 {
-    public class RepoBase<T> where T : AggregateRoot
+    public class RepoBase<T> : IRepoBase<T>
     {
         private static MongoClient _client;
 
@@ -45,20 +45,11 @@ namespace SimpleBot.Persistencia
         {
             return _collection.AsQueryable();
         }
-
-        public async Task<T> FindById(Guid id)
+        
+        public async Task ReplaceOne(Expression<Func<T, bool>> filter,
+            T entity)
         {
-            return _collection.Find(x => x.Id == id).FirstOrDefault();
-        }
-
-        public async Task Increment(
-            Expression<Func<T, bool>> filter,
-            string fieldName,
-            int incValue)
-        {
-            var update = new BsonDocument("$inc", new BsonDocument(fieldName, incValue));
-
-            await _collection.UpdateOneAsync(filter, update);
+            await _collection.ReplaceOneAsync(filter, entity, new UpdateOptions() { IsUpsert = true });
         }
     }
 }
