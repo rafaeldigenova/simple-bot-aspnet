@@ -8,6 +8,14 @@ namespace SimpleBot
 {
     public class UserProfile : AggregateRoot
     {
+        public string UserId { get; set; }
+
         public int Visitas { get; set; }
+
+        public UserProfile(string userId, int visitas)
+        {
+            UserId = userId;
+            Visitas = visitas;
+        }
     }
 }

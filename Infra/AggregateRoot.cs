@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,9 @@ namespace SimpleBot.Infra
     public abstract class AggregateRoot : IEquatable<AggregateRoot>
     {
         public Guid Id { get; protected set; }
+
+        [BsonExtraElements]
+        public BsonDocument etc { get; set; }
 
         protected AggregateRoot()
         {

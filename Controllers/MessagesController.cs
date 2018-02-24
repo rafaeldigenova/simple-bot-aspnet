@@ -42,7 +42,7 @@ namespace SimpleBot
 
             var message = new Message(userFromId, userFromName, text);
 
-            string response = SimpleBotUser.Reply(message);
+            string response = await SimpleBotUser.Reply(message);
 
             var tasks = new Task[]
             {
