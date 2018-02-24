@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using SimpleBot.Persistencia;
+using System.Threading;
+
 
 namespace SimpleBot
 {
@@ -22,7 +24,7 @@ namespace SimpleBot
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
-            if ( activity != null && activity.Type == ActivityTypes.Message)
+            if (activity != null && activity.Type == ActivityTypes.Message)
             {
                 await HandleActivityAsync(activity);
             }
@@ -40,11 +42,15 @@ namespace SimpleBot
 
             var message = new Message(userFromId, userFromName, text);
 
-            await _messageRepo.InsertOne(message);
-
             string response = SimpleBotUser.Reply(message);
 
-            await ReplyUserAsync(activity, response);
+            var tasks = new Task[]
+            {
+                _messageRepo.InsertOne(message),
+                ReplyUserAsync(activity, response)
+            };
+
+            Task.WaitAll(tasks);
         }
 
         // Responde mensagens usando o Bot Framework Connector

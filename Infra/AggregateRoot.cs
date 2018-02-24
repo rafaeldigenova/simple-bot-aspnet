@@ -7,14 +7,14 @@ namespace SimpleBot.Infra
 {
     public abstract class AggregateRoot : IEquatable<AggregateRoot>
     {
-        public string Id { get; protected set; }
+        public Guid Id { get; protected set; }
 
         protected AggregateRoot()
         {
-
+            Id = Guid.NewGuid();
         }
 
-        protected AggregateRoot(string id)
+        protected AggregateRoot(Guid id)
         {
             Id = id;
         }

@@ -8,12 +8,14 @@ namespace SimpleBot
 {
     public class Message : AggregateRoot
     {
+        public string Identificador { get; set; }
         public string User { get; set; }
         public string Text { get; set; }
 
-        public Message(string id, string username, string text)
+        public Message(string identificador, string username, string text)
+            : base()
         {
-            this.Id = id;
+            this.Identificador = identificador;
             this.User = username;
             this.Text = text;
         }
