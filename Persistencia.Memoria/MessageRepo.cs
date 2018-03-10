@@ -2,12 +2,17 @@
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public class MessageRepo : RepoBase<Message>, IMessageRepo
+    public class MessageRepo : MemoHelper<Message>, IMessageRepo
     {
         public MessageRepo()
             : base("Messages")
         {
 
+        }
+
+        public void SalvarMensagem()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

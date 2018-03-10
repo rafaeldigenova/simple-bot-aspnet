@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.SQL
 {
-    public class MessageRepo : RepoBase<Message>, IMessageRepo
+    public class MessageRepo : IMessageRepo
     {
         private static string _connectionString;
 
@@ -17,7 +17,7 @@ namespace SimpleBot.Persistencia.SQL
             _connectionString = connectionString;
         }
 
-        public override async Task InsertOne(Message userProfile)
+        public void SalvarMensagem(Message message)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -27,22 +27,11 @@ namespace SimpleBot.Persistencia.SQL
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.CommandText = "Insert Into Messages ([User], UserId, Text) values (@User, @UserId, @Text)";
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@User", userProfile.User);
-                cmd.Parameters.AddWithValue("@UserId", userProfile.UserId);
-                cmd.Parameters.AddWithValue("@Text", userProfile.Text);
+                cmd.Parameters.AddWithValue("@User", message.User);
+                cmd.Parameters.AddWithValue("@UserId", message.UserId);
+                cmd.Parameters.AddWithValue("@Text", message.Text);
                 cmd.ExecuteNonQuery();
             }
-        }
-
-        public override IQueryable<Message> GetLazy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override async Task ReplaceOne(Expression<Func<Message, bool>> filter,
-            Message entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

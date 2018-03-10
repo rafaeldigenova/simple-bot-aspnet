@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.SQL
 {
-    public class UserProfileRepo : RepoBase<UserProfile>, IUserRepo
+    public class UserProfileRepo : IUserRepo
     {
         private static string _connectionString;
         public UserProfileRepo(string connectionString)
@@ -17,7 +17,7 @@ namespace SimpleBot.Persistencia.SQL
             _connectionString = connectionString;
         }
 
-        public override async Task InsertOne(UserProfile userProfile)
+        public void Set(UserProfile userProfile)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -33,7 +33,7 @@ namespace SimpleBot.Persistencia.SQL
             }
         }
 
-        public override IQueryable<UserProfile> GetLazy()
+        public UserProfile Get(string userId)
         {
             var resultado = new List<UserProfile>();
 
@@ -43,7 +43,9 @@ namespace SimpleBot.Persistencia.SQL
                 var cmd = new SqlCommand();
                 cmd.Connection = connection;
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "Select UserId, Visitas from UserProfile";
+                cmd.CommandText = "Select UserId, Visitas from UserProfile where UserId = @UserId";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@UserId", userId);
                 var reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -54,24 +56,8 @@ namespace SimpleBot.Persistencia.SQL
                 }
             }
 
-            return resultado.AsQueryable();
+            return resultado.FirstOrDefault();
         }
 
-        public override async Task ReplaceOne(Expression<Func<UserProfile, bool>> filter,
-            UserProfile entity)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                var cmd = new SqlCommand();
-                cmd.Connection = connection;
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "Update UserProfile set Visitas = @Visitas where UserId = @UserId";
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@UserId", entity.UserId);
-                cmd.Parameters.AddWithValue("@Visitas", entity.Visitas);
-                cmd.ExecuteNonQuery();
-            }
-        }
     }
 }

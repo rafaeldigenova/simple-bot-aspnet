@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.MongoDB
 {
-    public abstract class RepoBase<T> : IRepoBase<T>
+    public abstract class RepoBase<T>
     {
         private static MongoClient _client;
 

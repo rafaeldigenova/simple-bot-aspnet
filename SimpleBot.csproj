@@ -145,7 +145,6 @@
     </Compile>
     <Compile Include="Infra\EntidadeBase.cs" />
     <Compile Include="Infra\Configuracao.cs" />
-    <Compile Include="Infra\IRepoBase.cs" />
     <Compile Include="Infra\PersistencyFactory.cs" />
     <Compile Include="Infra\TipoDePersistencia.cs" />
     <Compile Include="Dominio\IMessageRepo.cs" />
@@ -154,13 +153,12 @@
     <Compile Include="Logic\SimpleBotUser.cs" />
     <Compile Include="Dominio\UserProfile.cs" />
     <Compile Include="Persistencia.SQL\MessageRepo.cs" />
-    <Compile Include="Persistencia.SQL\RepoBase.cs" />
     <Compile Include="Persistencia.SQL\UserProfileRepo.cs" />
     <Compile Include="Persistencia.Memoria\MessageRepo.cs" />
-    <Compile Include="Persistencia.Memoria\RepoBase.cs" />
+    <Compile Include="Persistencia.Memoria\MemoHelper.cs" />
     <Compile Include="Persistencia.Memoria\UserProfileRepo.cs" />
     <Compile Include="Persistencia.MongoDB\MessageRepo.cs" />
-    <Compile Include="Persistencia.MongoDB\RepoBase.cs" />
+    <Compile Include="Persistencia.MongoDB\MongoHelper.cs" />
     <Compile Include="Persistencia.MongoDB\UserProfileRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

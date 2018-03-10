@@ -59,7 +59,7 @@ namespace SimpleBot.Logic
 
         private static async Task SetProfile(UserProfile profile)
         {
-           await UserProfileRepo.ReplaceOne(x => x.UserId == profile.UserId, profile);
+           await UserProfileRepo.Set(profile);
         }
     }
 }

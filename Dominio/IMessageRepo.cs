@@ -2,7 +2,8 @@
 
 namespace SimpleBot.Dominio
 {
-    public interface IMessageRepo : IRepoBase<Message>
+    public interface IMessageRepo
     {
+        void SalvarMensagem(Message message);
     }
 }

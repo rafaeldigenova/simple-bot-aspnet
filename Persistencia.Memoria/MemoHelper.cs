@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public abstract class RepoBase<T> : IRepoBase<T>
+    public abstract class MemoHelper<T> 
     {
         private static List<T> _collection;
 
-        public RepoBase(string collectionName, string connectionString = null)
+        public MemoHelper(string collectionName)
         {
             if(_collection == null)
             {
