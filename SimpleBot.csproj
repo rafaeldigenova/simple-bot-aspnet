@@ -144,7 +144,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\EntidadeBase.cs" />
-    <Compile Include="Infra\AggregateRoot.cs" />
     <Compile Include="Infra\Configuracao.cs" />
     <Compile Include="Infra\IRepoBase.cs" />
     <Compile Include="Logic\IMessageRepo.cs" />

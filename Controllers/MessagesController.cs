@@ -6,7 +6,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using SimpleBot.Persistencia.SQL;
-using System.Threading;
 
 
 namespace SimpleBot

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using SimpleBot.Infra;
 
 namespace SimpleBot.Logic
 {
-    public interface IUserRepo
+    public interface IUserRepo : IRepoBase<UserProfile>
     {
     }
 }

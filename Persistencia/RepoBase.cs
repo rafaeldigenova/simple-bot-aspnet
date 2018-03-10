@@ -1,16 +1,13 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using SimpleBot.Infra;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace SimpleBot.Persistencia
 {
-    public class RepoBase<T> : IRepoBase<T>
+    public abstract class RepoBase<T> : IRepoBase<T>
     {
         private static MongoClient _client;
 

@@ -1,12 +1,8 @@
 ﻿using SimpleBot.Infra;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SimpleBot
 {
-    public class UserProfile : AggregateRoot
+    public class UserProfile : EntidadeBase
     {
         public string UserId { get; set; }
 
