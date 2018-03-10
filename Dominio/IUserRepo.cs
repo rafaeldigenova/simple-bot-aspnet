@@ -1,6 +1,6 @@
 ﻿using SimpleBot.Infra;
 
-namespace SimpleBot.Logic
+namespace SimpleBot.Dominio
 {
     public interface IUserRepo : IRepoBase<UserProfile>
     {

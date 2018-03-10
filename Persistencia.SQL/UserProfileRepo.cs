@@ -1,4 +1,5 @@
-﻿using SimpleBot.Infra;
+﻿using SimpleBot.Dominio;
+using SimpleBot.Infra;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.SQL
 {
-    public class UserProfileRepo : RepoBase<UserProfile>
+    public class UserProfileRepo : RepoBase<UserProfile>, IUserRepo
     {
-        public UserProfileRepo()
+        private static string _connectionString;
+        public UserProfileRepo(string connectionString)
         {
+            _connectionString = connectionString;
         }
 
         public override async Task InsertOne(UserProfile userProfile)
         {
-            using (var connection = new SqlConnection(Configuracao.ConnectionStringSql))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand();
@@ -34,7 +37,7 @@ namespace SimpleBot.Persistencia.SQL
         {
             var resultado = new List<UserProfile>();
 
-            using (var connection = new SqlConnection(Configuracao.ConnectionStringSql))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand();
@@ -57,7 +60,7 @@ namespace SimpleBot.Persistencia.SQL
         public override async Task ReplaceOne(Expression<Func<UserProfile, bool>> filter,
             UserProfile entity)
         {
-            using (var connection = new SqlConnection(Configuracao.ConnectionStringSql))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand();

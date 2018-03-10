@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
+using SimpleBot.Dominio;
+using SimpleBot.Infra;
+using SimpleBot.Logic;
 using SimpleBot.Persistencia.SQL;
 
 
@@ -13,11 +16,11 @@ namespace SimpleBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private readonly MessageRepo _messageRepo;
+        private readonly IMessageRepo _messageRepo;
 
         public MessagesController()
         {
-            _messageRepo = new MessageRepo();
+            _messageRepo = PersistencyFactory.ObterRepositorioDeMensagem();
         }
 
         [ResponseType(typeof(void))]

@@ -146,20 +146,22 @@
     <Compile Include="Infra\EntidadeBase.cs" />
     <Compile Include="Infra\Configuracao.cs" />
     <Compile Include="Infra\IRepoBase.cs" />
-    <Compile Include="Logic\IMessageRepo.cs" />
-    <Compile Include="Logic\IUserRepo.cs" />
-    <Compile Include="Logic\Message.cs" />
+    <Compile Include="Infra\PersistencyFactory.cs" />
+    <Compile Include="Infra\TipoDePersistencia.cs" />
+    <Compile Include="Dominio\IMessageRepo.cs" />
+    <Compile Include="Dominio\IUserRepo.cs" />
+    <Compile Include="Dominio\Message.cs" />
     <Compile Include="Logic\SimpleBotUser.cs" />
-    <Compile Include="Logic\UserProfile.cs" />
+    <Compile Include="Dominio\UserProfile.cs" />
     <Compile Include="Persistencia.SQL\MessageRepo.cs" />
     <Compile Include="Persistencia.SQL\RepoBase.cs" />
     <Compile Include="Persistencia.SQL\UserProfileRepo.cs" />
     <Compile Include="Persistencia.Memoria\MessageRepo.cs" />
     <Compile Include="Persistencia.Memoria\RepoBase.cs" />
     <Compile Include="Persistencia.Memoria\UserProfileRepo.cs" />
-    <Compile Include="Persistencia\MessageRepo.cs" />
-    <Compile Include="Persistencia\RepoBase.cs" />
-    <Compile Include="Persistencia\UserProfileRepo.cs" />
+    <Compile Include="Persistencia.MongoDB\MessageRepo.cs" />
+    <Compile Include="Persistencia.MongoDB\RepoBase.cs" />
+    <Compile Include="Persistencia.MongoDB\UserProfileRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ namespace SimpleBot.Persistencia.Memoria
     {
         private static List<T> _collection;
 
-        public RepoBase(string collectionName)
+        public RepoBase(string collectionName, string connectionString = null)
         {
             if(_collection == null)
             {

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SimpleBot.Persistencia
+namespace SimpleBot.Persistencia.MongoDB
 {
     public abstract class RepoBase<T> : IRepoBase<T>
     {
         private static MongoClient _client;
+
+        private static string _connectionString;
 
         public static MongoClient Client
         {
@@ -17,7 +19,7 @@ namespace SimpleBot.Persistencia
             {
                 if (_client == null)
                 {
-                    _client = new MongoClient(Configuracao.ConnectionString);
+                    _client = new MongoClient(_connectionString);
                 }
                 return _client;
             }
@@ -26,8 +28,10 @@ namespace SimpleBot.Persistencia
         private readonly IMongoDatabase _database;
         private readonly IMongoCollection<T> _collection;
 
-        public RepoBase(string collectionName)
+        public RepoBase(string collectionName, string connectionString)
         {
+            _connectionString = connectionString;
+
             _database = Client.GetDatabase(Configuracao.DatabaseName);
 
             _collection = _database.GetCollection<T>(collectionName);

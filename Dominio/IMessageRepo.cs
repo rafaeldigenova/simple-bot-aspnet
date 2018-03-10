@@ -1,6 +1,6 @@
 ﻿using SimpleBot.Infra;
 
-namespace SimpleBot.Logic
+namespace SimpleBot.Dominio
 {
     public interface IMessageRepo : IRepoBase<Message>
     {

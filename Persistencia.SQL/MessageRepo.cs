@@ -1,4 +1,5 @@
-﻿using SimpleBot.Infra;
+﻿using SimpleBot.Dominio;
+using SimpleBot.Infra;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -7,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.SQL
 {
-    public class MessageRepo : RepoBase<Message>
+    public class MessageRepo : RepoBase<Message>, IMessageRepo
     {
-        public MessageRepo()
-        {
+        private static string _connectionString;
 
+        public MessageRepo(string connectionString)
+        {
+            _connectionString = connectionString;
         }
 
         public override async Task InsertOne(Message userProfile)
         {
-            using (var connection = new SqlConnection(Configuracao.ConnectionStringSql))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var cmd = new SqlCommand(Configuracao.ConnectionStringSql);
+                var cmd = new SqlCommand(_connectionString);
                 cmd.Connection = connection;
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.CommandText = "Insert Into Messages ([User], UserId, Text) values (@User, @UserId, @Text)";

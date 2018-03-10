@@ -4,7 +4,7 @@ namespace SimpleBot.Infra
 {
     public class Configuracao
     {
-        public static string ConnectionString
+        public static string ConnectionStringMongoDB
         {
             get
             {

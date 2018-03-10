@@ -1,24 +1,25 @@
-﻿using SimpleBot.Persistencia.SQL;
+﻿using SimpleBot.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SimpleBot.Dominio;
 
-namespace SimpleBot
+namespace SimpleBot.Logic
 {
     public class SimpleBotUser
     {
         static Dictionary<string, UserProfile> _perfil = new Dictionary<string, UserProfile>();
 
-        private static UserProfileRepo _userProfileRepo;
+        private static IUserRepo _userProfileRepo;
 
-        private static UserProfileRepo UserProfileRepo
+        private static IUserRepo UserProfileRepo
         {
             get
             {
                 if(_userProfileRepo == null)
                 {
-                    _userProfileRepo = new SimpleBot.Persistencia.SQL.UserProfileRepo();
+                    _userProfileRepo = PersistencyFactory.ObterRepositorioDeUsuario();
                 }
                 return _userProfileRepo;
             }

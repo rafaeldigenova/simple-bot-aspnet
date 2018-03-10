@@ -1,6 +1,6 @@
 ﻿using SimpleBot.Infra;
 
-namespace SimpleBot
+namespace SimpleBot.Dominio
 {
     public class Message : EntidadeBase
     {
