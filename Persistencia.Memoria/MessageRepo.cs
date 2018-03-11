@@ -1,18 +1,18 @@
-﻿using SimpleBot.Dominio;
+﻿using System;
+using System.Threading.Tasks;
+using SimpleBot.Dominio;
 
 namespace SimpleBot.Persistencia.Memoria
 {
     public class MessageRepo : MemoHelper<Message>, IMessageRepo
     {
         public MessageRepo()
-            : base("Messages")
         {
-
         }
 
-        public void SalvarMensagem()
+        public async Task SalvarMensagem(Message message)
         {
-            throw new System.NotImplementedException();
+            await ReplaceOne(x => x.Id == message.Id, message);
         }
     }
 }

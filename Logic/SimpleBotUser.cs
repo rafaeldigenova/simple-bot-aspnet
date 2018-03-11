@@ -11,9 +11,9 @@ namespace SimpleBot.Logic
     {
         static Dictionary<string, UserProfile> _perfil = new Dictionary<string, UserProfile>();
 
-        private static IUserRepo _userProfileRepo;
+        private static IUserProfileRepo _userProfileRepo;
 
-        private static IUserRepo UserProfileRepo
+        private static IUserProfileRepo UserProfileRepo
         {
             get
             {
@@ -31,11 +31,11 @@ namespace SimpleBot.Logic
             {
                 string userId = message.UserId;
 
-                var userProfile = await GetProfile(userId);
+                var userProfile = await GetUserProfile(userId);
 
                 userProfile.Visitas += 1;
 
-                await SetProfile(userProfile);
+                await UserProfileRepo.Set(userProfile);
 
                 return $"{message.User} conversou {userProfile.Visitas} vezes";
             }catch(Exception ex)
@@ -44,22 +44,17 @@ namespace SimpleBot.Logic
             }
         }
 
-        private static async Task<UserProfile> GetProfile(string id)
+        private static async Task<UserProfile> GetUserProfile(string id)
         {
-            var userProfile = UserProfileRepo.GetLazy().Where(x => x.UserId == id).FirstOrDefault();
+            var userProfile = await UserProfileRepo.Get(id);
 
             if(userProfile == null)
             {
                 userProfile = new UserProfile(id, 0);
-                await UserProfileRepo.InsertOne(userProfile);
+                await UserProfileRepo.Set(userProfile);
             }
 
             return userProfile;
-        }
-
-        private static async Task SetProfile(UserProfile profile)
-        {
-           await UserProfileRepo.Set(profile);
         }
     }
 }

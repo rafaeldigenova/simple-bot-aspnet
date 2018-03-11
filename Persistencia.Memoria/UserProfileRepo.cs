@@ -1,28 +1,28 @@
-﻿using SimpleBot.Dominio;
+﻿using System;
+using System.Threading.Tasks;
+using SimpleBot.Dominio;
+using System.Linq;
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public class UserProfileRepo : MemoHelper<UserProfile>, IUserRepo
+    public class UserProfileRepo : MemoHelper<UserProfile>, IUserProfileRepo
     {
         public UserProfileRepo()
-            : base ("UserProfile")
         {
 
         }
 
-        public UserProfile Get()
+        public Task<UserProfile> Get(string userId)
         {
-            throw new System.NotImplementedException();
+            return Task.Run(() =>
+            {
+                return GetLazy().FirstOrDefault(x => x.UserId == userId);
+            });
         }
 
-        public void SalvarHistorico()
+        public Task Set(UserProfile userProfile)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Set(UserProfile userProfile)
-        {
-            throw new System.NotImplementedException();
+            return ReplaceOne(x => x.UserId == userProfile.UserId, userProfile);
         }
     }
 }

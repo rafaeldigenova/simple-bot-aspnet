@@ -9,11 +9,19 @@ namespace SimpleBot.Infra
         {
             get
             {
-                return TipoDePersistencia.SQL;
+                switch (Configuracao.DatabaseProvider)
+                {
+                    case "SQLServer":
+                        return TipoDePersistencia.SQL;
+                    case "MongoDB":
+                        return TipoDePersistencia.MongoDb;
+                    default:
+                        return TipoDePersistencia.Memoria;
+                }
             }
         }
 
-        public static IUserRepo ObterRepositorioDeUsuario()
+        public static IUserProfileRepo ObterRepositorioDeUsuario()
         {
             switch(_tipoDeBancoDeDados)
             {

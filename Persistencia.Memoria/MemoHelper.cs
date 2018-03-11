@@ -12,11 +12,16 @@ namespace SimpleBot.Persistencia.Memoria
     {
         private static List<T> _collection;
 
-        public MemoHelper(string collectionName)
+        private static List<T> Collection
         {
-            if(_collection == null)
+            get
             {
-                _collection = new List<T>();
+                if(_collection == null)
+                {
+                    _collection = new List<T>();
+                }
+
+                return _collection;
             }
         }
 
@@ -24,26 +29,26 @@ namespace SimpleBot.Persistencia.Memoria
         {
             return Task.Run(() =>
             {
-                _collection.ToList().Add(entity);
+                Collection.ToList().Add(entity);
             });
         }
 
         public IQueryable<T> GetLazy()
         {
-            return _collection.AsQueryable();
+            return Collection.AsQueryable();
         }
 
         public async Task ReplaceOne(Expression<Func<T, bool>> filter,
             T entity)
         {
-            var entidade = _collection.AsQueryable().Where(filter).FirstOrDefault();
+            var entidade = Collection.AsQueryable().Where(filter).FirstOrDefault();
 
             if (entidade != null)
             {
-                _collection.ToList().Remove(entidade);
+                Collection.ToList().Remove(entidade);
             }
 
-            _collection.Add(entity);
+            Collection.Add(entity);
         }
     }
 }

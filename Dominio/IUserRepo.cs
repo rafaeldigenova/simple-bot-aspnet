@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Dominio
 {
-    public interface IUserRepo
+    public interface IUserProfileRepo
     {
         Task Set(UserProfile userProfile);
-        UserProfile Get(string userId);
+        Task<UserProfile> Get(string userId);
     }
 }

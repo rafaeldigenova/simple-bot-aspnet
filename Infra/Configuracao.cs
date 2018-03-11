@@ -27,5 +27,13 @@ namespace SimpleBot.Infra
                 return ConfigurationManager.AppSettings["databaseName"];
             }
         }
+
+        public static string DatabaseProvider
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["databasProvider"];
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using SimpleBot.Dominio;
+﻿using System;
+using System.Threading.Tasks;
+using SimpleBot.Dominio;
 
 namespace SimpleBot.Persistencia.MongoDB
 {
@@ -7,6 +9,11 @@ namespace SimpleBot.Persistencia.MongoDB
         public MessageRepo(string connectionString)
             : base("Messages", connectionString)
         {
+        }
+
+        public async Task SalvarMensagem(Message message)
+        {
+            await ReplaceOne(x => x.Id == message.Id, message);
         }
     }
 }

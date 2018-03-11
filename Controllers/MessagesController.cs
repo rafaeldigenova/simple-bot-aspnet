@@ -16,11 +16,18 @@ namespace SimpleBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private readonly IMessageRepo _messageRepo;
+        private static IMessageRepo _messageRepo;
 
-        public MessagesController()
+        private static IMessageRepo MessageRepo
         {
-            _messageRepo = PersistencyFactory.ObterRepositorioDeMensagem();
+            get
+            {
+                if (_messageRepo == null)
+                {
+                    _messageRepo = PersistencyFactory.ObterRepositorioDeMensagem();
+                }
+                return _messageRepo;
+            }
         }
 
         [ResponseType(typeof(void))]
@@ -48,7 +55,7 @@ namespace SimpleBot
 
             var tasks = new Task[]
             {
-                _messageRepo.InsertOne(message),
+                MessageRepo.SalvarMensagem(message),
                 ReplyUserAsync(activity, response)
             };
 

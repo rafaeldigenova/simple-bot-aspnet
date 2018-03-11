@@ -1,9 +1,10 @@
 ﻿using SimpleBot.Infra;
+using System.Threading.Tasks;
 
 namespace SimpleBot.Dominio
 {
     public interface IMessageRepo
     {
-        void SalvarMensagem(Message message);
+        Task SalvarMensagem(Message message);
     }
 }
