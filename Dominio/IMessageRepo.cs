@@ -5,6 +5,6 @@ namespace SimpleBot.Dominio
 {
     public interface IMessageRepo
     {
-        Task SalvarMensagem(Message message);
+        Task SalvarMensagemAsync(Message message);
     }
 }

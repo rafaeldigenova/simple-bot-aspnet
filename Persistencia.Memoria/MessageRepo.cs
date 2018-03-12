@@ -4,15 +4,28 @@ using SimpleBot.Dominio;
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public class MessageRepo : MemoHelper<Message>, IMessageRepo
+    public class MessageRepo : IMessageRepo
     {
-        public MessageRepo()
-        {
-        }
+        private static string _connectionString;
 
-        public async Task SalvarMensagem(Message message)
+        private static MemoHelper<Message> _memoHelper;
+
+        private static MemoHelper<Message> MemoHelper
         {
-            await ReplaceOne(x => x.Id == message.Id, message);
+            get
+            {
+                if (_memoHelper == null)
+                {
+                    _memoHelper = new MemoHelper<Message>();
+                }
+
+                return _memoHelper;
+            }
+        }
+        
+        public async Task SalvarMensagemAsync(Message message)
+        {
+            await MemoHelper.ReplaceOneAsync(x => x.Id == message.Id, message);
         }
     }
 }

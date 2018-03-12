@@ -5,24 +5,36 @@ using System.Linq;
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public class UserProfileRepo : MemoHelper<UserProfile>, IUserProfileRepo
+    public class UserProfileRepo : IUserProfileRepo
     {
-        public UserProfileRepo()
-        {
+        private static string _connectionString;
 
+        private static MemoHelper<UserProfile> _memoHelper;
+
+        private static MemoHelper<UserProfile> MemoHelper
+        {
+            get
+            {
+                if (_memoHelper == null)
+                {
+                    _memoHelper = new MemoHelper<UserProfile>();
+                }
+
+                return _memoHelper;
+            }
         }
 
-        public Task<UserProfile> Get(string userId)
+        public Task<UserProfile> GetAsync(string userId)
         {
             return Task.Run(() =>
             {
-                return GetLazy().FirstOrDefault(x => x.UserId == userId);
+                return MemoHelper.GetLazy().FirstOrDefault(x => x.UserId == userId);
             });
         }
 
-        public Task Set(UserProfile userProfile)
+        public Task SetAsync(UserProfile userProfile)
         {
-            return ReplaceOne(x => x.UserId == userProfile.UserId, userProfile);
+            return MemoHelper.ReplaceOneAsync(x => x.UserId == userProfile.UserId, userProfile);
         }
     }
 }

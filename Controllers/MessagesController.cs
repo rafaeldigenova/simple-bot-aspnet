@@ -51,11 +51,11 @@ namespace SimpleBot
 
             var message = new Message(userFromId, userFromName, text);
 
-            string response = await SimpleBotUser.Reply(message);
+            string response = await SimpleBotUser.ReplyAsync(message);
 
             var tasks = new Task[]
             {
-                MessageRepo.SalvarMensagem(message),
+                MessageRepo.SalvarMensagemAsync(message),
                 ReplyUserAsync(activity, response)
             };
 

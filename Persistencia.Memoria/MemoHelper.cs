@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.Memoria
 {
-    public abstract class MemoHelper<T> 
+    public class MemoHelper<T> 
     {
         private static List<T> _collection;
 
@@ -25,7 +25,7 @@ namespace SimpleBot.Persistencia.Memoria
             }
         }
 
-        public Task InsertOne(T entity)
+        public Task InsertOneAsync(T entity)
         {
             return Task.Run(() =>
             {
@@ -38,7 +38,7 @@ namespace SimpleBot.Persistencia.Memoria
             return Collection.AsQueryable();
         }
 
-        public async Task ReplaceOne(Expression<Func<T, bool>> filter,
+        public async Task ReplaceOneAsync(Expression<Func<T, bool>> filter,
             T entity)
         {
             var entidade = Collection.AsQueryable().Where(filter).FirstOrDefault();

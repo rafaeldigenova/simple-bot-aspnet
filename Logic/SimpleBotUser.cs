@@ -25,7 +25,7 @@ namespace SimpleBot.Logic
             }
         }
 
-        public static async Task<string> Reply(Message message)
+        public static async Task<string> ReplyAsync(Message message)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SimpleBot.Logic
 
                 userProfile.Visitas += 1;
 
-                await UserProfileRepo.Set(userProfile);
+                await UserProfileRepo.SetAsync(userProfile);
 
                 return $"{message.User} conversou {userProfile.Visitas} vezes";
             }catch(Exception ex)
@@ -46,12 +46,12 @@ namespace SimpleBot.Logic
 
         private static async Task<UserProfile> GetUserProfile(string id)
         {
-            var userProfile = await UserProfileRepo.Get(id);
+            var userProfile = await UserProfileRepo.GetAsync(id);
 
             if(userProfile == null)
             {
                 userProfile = new UserProfile(id, 0);
-                await UserProfileRepo.Set(userProfile);
+                await UserProfileRepo.SetAsync(userProfile);
             }
 
             return userProfile;

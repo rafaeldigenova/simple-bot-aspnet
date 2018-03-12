@@ -5,7 +5,7 @@ namespace SimpleBot.Dominio
 {
     public interface IUserProfileRepo
     {
-        Task Set(UserProfile userProfile);
-        Task<UserProfile> Get(string userId);
+        Task SetAsync(UserProfile userProfile);
+        Task<UserProfile> GetAsync(string userId);
     }
 }

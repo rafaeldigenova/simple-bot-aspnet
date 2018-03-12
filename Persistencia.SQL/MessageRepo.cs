@@ -17,7 +17,7 @@ namespace SimpleBot.Persistencia.SQL
             _connectionString = connectionString;
         }
 
-        public Task SalvarMensagem(Message message)
+        public Task SalvarMensagemAsync(Message message)
         {
             return Task.Run(() =>
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBot.Persistencia.MongoDB
 {
-    public abstract class RepoBase<T>
+    public class MongoHelper<T>
     {
         private static MongoClient _client;
 
@@ -28,7 +28,7 @@ namespace SimpleBot.Persistencia.MongoDB
         private readonly IMongoDatabase _database;
         private readonly IMongoCollection<T> _collection;
 
-        public RepoBase(string collectionName, string connectionString)
+        public MongoHelper(string collectionName, string connectionString)
         {
             _connectionString = connectionString;
 
@@ -37,7 +37,7 @@ namespace SimpleBot.Persistencia.MongoDB
             _collection = _database.GetCollection<T>(collectionName);
         }
 
-        public Task InsertOne(T entity)
+        public Task InsertOneAsync(T entity)
         {
             return _collection.InsertOneAsync(entity);
         }
@@ -47,7 +47,7 @@ namespace SimpleBot.Persistencia.MongoDB
             return _collection.AsQueryable();
         }
         
-        public async Task ReplaceOne(Expression<Func<T, bool>> filter,
+        public async Task ReplaceOneAsync(Expression<Func<T, bool>> filter,
             T entity)
         {
             await _collection.ReplaceOneAsync(filter, entity, new UpdateOptions() { IsUpsert = true });

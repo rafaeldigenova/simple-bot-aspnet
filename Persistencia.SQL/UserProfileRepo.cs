@@ -18,7 +18,7 @@ namespace SimpleBot.Persistencia.SQL
             _connectionString = connectionString;
         }
 
-        public Task Set(UserProfile userProfile)
+        public Task SetAsync(UserProfile userProfile)
         {
             return Task.Run(() =>
             {
@@ -45,7 +45,7 @@ namespace SimpleBot.Persistencia.SQL
             });
         }
 
-        public Task<UserProfile> Get(string userId)
+        public Task<UserProfile> GetAsync(string userId)
         {
             return Task.Run(() =>
             {
